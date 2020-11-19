@@ -34,6 +34,6 @@ public class Bug {
     @ManyToOne(optional = true)
     private Developer assignee;
 
-    static enum Priority {LOW, NORMAL, HIGH};
-    static enum Progress {TODO, DOING, DONE};
+    public static enum Priority {LOW, NORMAL, HIGH};
+    public static enum Progress {TODO, DOING, DONE};
 }
