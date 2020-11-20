@@ -23,7 +23,7 @@ import lombok.Setter;
 public class Developer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     private String handle;
     private String displayName;
