@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,6 +34,7 @@ public class Bug {
     private Progress progress;
 
     @ManyToOne(optional = true)
+    @JsonBackReference
     private Developer assignee;
 
     public static enum Priority {LOW, NORMAL, HIGH};
