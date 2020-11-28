@@ -9,9 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import org.hibernate.annotations.NaturalId;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,8 +25,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Builder
-public class Developer {
-    @Id
+public class Developer{
+    public Developer(String displayName2, String handle2, String password2) {
+	}
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -35,6 +38,9 @@ public class Developer {
     private String handle;
     
     private String displayName;
+
+    @Column(nullable = false)
+    private String password;
 
     @OneToMany(mappedBy = "assignee")
     @JsonManagedReference
