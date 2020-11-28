@@ -13,35 +13,36 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("developers")
 public class DeveloperRoutes {
     @Autowired
     DeveloperRepository developerRepository;
 
-    @GetMapping("developers/{id}")
+    @GetMapping("/{id}")
     public Developer getDeveloper(@PathVariable("id") Integer id) throws ResourceNotFoundException {
-        return developerRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Developer not found with id " + id));
+        return developerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Developer", "id", id));
     }
 
-    @GetMapping("developers")
+    @GetMapping()
     public Collection<Developer> getAllDevelopers() {
         return developerRepository.findAll();
     }
 
-    @PostMapping("developers")
+    @PostMapping()
     public Developer createDeveloper(@Validated @RequestBody Developer developer) {
         return developerRepository.save(
-                Developer.builder().handle(developer.getHandle()).displayName(developer.getDisplayName()).build());
+                Developer.builder().username(developer.getUsername()).name(developer.getName()).build());
     }
 
-    @DeleteMapping("developers/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteDeveloper(@PathVariable("id") Integer id) throws ResourceNotFoundException {
         return developerRepository.findById(id).map(developer -> {
             developerRepository.delete(developer);
             return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundException("Developer not found with id " + id));
+        }).orElseThrow(() -> new ResourceNotFoundException("Developer", "id", id));
     }
 }

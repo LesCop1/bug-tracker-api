@@ -2,12 +2,12 @@ package org.bugtracker.api.models;
 
 import java.util.Collection;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.NaturalId;
 
@@ -25,21 +25,18 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Builder
-public class Developer{
-    public Developer(String displayName2, String handle2, String password2) {
-	}
-
-	@Id
+public class Developer {
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NaturalId
-    @Column(nullable = false, unique = true)
-    private String handle;
-    
-    private String displayName;
+    @NotBlank
+    private String username;
 
-    @Column(nullable = false)
+    @NotBlank
+    private String name;
+
     private String password;
 
     @OneToMany(mappedBy = "assignee")

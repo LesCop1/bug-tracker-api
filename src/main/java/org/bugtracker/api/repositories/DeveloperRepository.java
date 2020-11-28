@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DeveloperRepository extends JpaRepository<Developer, Integer> {
     Optional<Developer> findById(Integer id);
-    Optional<Developer> findByHandle(String handle);
-    Boolean existsByHandle(String handle);
+    Optional<Developer> findByUsername(String username);
+    Boolean existsByUsername(String username);
 }

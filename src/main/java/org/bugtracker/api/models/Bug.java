@@ -7,8 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,11 +31,22 @@ public class Bug {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank
     private String title;
+
+    @NotBlank
     private String description;
+
+    @CreationTimestamp
     private Date creationDate;
-    private Priority priority;
-    private Progress progress;
+
+    @Builder.Default
+    @NotNull
+    private Priority priority = Priority.LOW;
+
+    @Builder.Default
+    @NotNull
+    private Progress progress = Progress.TODO;
 
     @ManyToOne(optional = true)
     @JsonBackReference

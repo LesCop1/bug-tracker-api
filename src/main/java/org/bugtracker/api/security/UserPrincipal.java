@@ -1,7 +1,5 @@
 package org.bugtracker.api.security;
 
-import org.bugtracker.api.models.Developer;
-
 import java.util.Collection;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,11 +18,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class UserPrincipal implements UserDetails {
+    private static final long serialVersionUID = 1L;
+
     private Integer id;
 
-    private String handle;
+    private String username;
 
-    private String displayName;
+    private String name;
 
     @JsonIgnore
     private String password;
@@ -34,11 +34,6 @@ public class UserPrincipal implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
-    }
-
-    @Override
-    public String getUsername() {
-        return handle;
     }
 
     @Override

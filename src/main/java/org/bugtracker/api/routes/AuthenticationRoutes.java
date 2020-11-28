@@ -1,11 +1,10 @@
-package org.bugtracker.api.controller;
+package org.bugtracker.api.routes;
 
-import org.bugtracker.api.exceptions.AppException;
 import org.bugtracker.api.models.Developer;
-import org.bugtracker.api.payload.ApiResponse;
-import org.bugtracker.api.payload.JwtAuthenticationResponse;
-import org.bugtracker.api.payload.LoginRequest;
-import org.bugtracker.api.payload.SignUpRequest;
+import org.bugtracker.api.payloads.ApiResponse;
+import org.bugtracker.api.payloads.JwtAuthenticationResponse;
+import org.bugtracker.api.payloads.LoginRequest;
+import org.bugtracker.api.payloads.SignUpRequest;
 import org.bugtracker.api.repositories.DeveloperRepository;
 import org.bugtracker.api.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +23,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.Collections;
 
 @RestController
-@RequestMapping("/api/auth")
-public class AuthController {
+@RequestMapping("/auth")
+public class AuthenticationRoutes {
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -44,37 +42,32 @@ public class AuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getHandle(),
-                        loginRequest.getPassword()
-                )
-        );
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = tokenProvider.generateToken(authentication);
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+        return ResponseEntity.ok(JwtAuthenticationResponse.builder().accessToken(jwt).build());
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<ApiResponse>registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
-        if(developerRepository.existsByHandle(signUpRequest.getHandle())) {
-            return new ResponseEntity<>(new ApiResponse(false, "Username is already taken!"),
-                    HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ApiResponse> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
+        if (developerRepository.existsByUsername(signUpRequest.getUsername())) {
+            return new ResponseEntity<>(new ApiResponse(false, "Username is already taken !"), HttpStatus.BAD_REQUEST);
         }
 
-        // Creating user's account
-        Developer user = Developer.builder().displayName(signUpRequest.getDisplayName()).handle(signUpRequest.getHandle()).build();
+        Developer user = Developer.builder()
+                                    .username(signUpRequest.getUsername())
+                                    .name(signUpRequest.getName())
+                                    .build();
 
         user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
 
         Developer result = developerRepository.save(user);
 
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentContextPath().path("/api/users/{username}")
-                .buildAndExpand(result.getHandle()).toUri();
+        URI location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/developers/{username}")
+                .buildAndExpand(result.getUsername()).toUri();
 
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
     }
