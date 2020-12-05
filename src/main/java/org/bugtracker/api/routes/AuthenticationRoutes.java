@@ -5,6 +5,7 @@ import org.bugtracker.api.payloads.ApiResponse;
 import org.bugtracker.api.payloads.JwtAuthenticationResponse;
 import org.bugtracker.api.payloads.LoginRequest;
 import org.bugtracker.api.payloads.SignUpRequest;
+import org.bugtracker.api.payloads.UsernameValidationRequest;
 import org.bugtracker.api.repositories.DeveloperRepository;
 import org.bugtracker.api.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,9 +67,14 @@ public class AuthenticationRoutes {
 
         Developer result = developerRepository.save(user);
 
-        URI location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/developers/{username}")
-                .buildAndExpand(result.getUsername()).toUri();
+        URI location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/developers/{id}")
+                .buildAndExpand(result.getId()).toUri();
 
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
+    }
+
+    @PostMapping("/checkUsernameAvailability")
+    public Boolean checkUsernameAvailability(@RequestBody UsernameValidationRequest payload) {
+        return developerRepository.existsByUsername(payload.getUsername());
     }
 }
