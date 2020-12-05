@@ -49,15 +49,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-                http.cors()
-                        .and().csrf().disable()
-                        .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
-                        .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                        .authorizeRequests()
-                        .antMatchers("/", "/h2-console/**", "/swagger-ui/**", "/swagger-resources/**", "/v2/api-docs").permitAll()
+                http.cors();
+                http.csrf().disable();
+                http.headers().frameOptions().disable();
+                http.exceptionHandling().authenticationEntryPoint(unauthorizedHandler);
+                http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                http.authorizeRequests()
+                        .antMatchers("/", "/h2-console/**", "/h2-console", "/swagger-ui/**", "/swagger-resources/**", "/v2/api-docs").permitAll()
                         .antMatchers(HttpMethod.GET, "/developers/**", "/bugs/**").permitAll()
                         .antMatchers("/auth/**").permitAll()
-                        .antMatchers("/user/checkUsernameAvailability").permitAll()
                         .anyRequest().authenticated();
 
                 http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
