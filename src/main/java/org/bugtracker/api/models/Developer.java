@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.NaturalId;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
@@ -37,6 +38,7 @@ public class Developer {
     @NotBlank
     private String name;
 
+    @JsonIgnore
     private String password;
 
     @OneToMany(mappedBy = "assignee")
