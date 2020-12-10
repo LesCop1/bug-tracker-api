@@ -52,6 +52,6 @@ public class Bug {
     @JsonBackReference
     private Developer assignee;
 
-    public static enum Priority {LOW, NORMAL, HIGH};
+    public static enum Priority {LOW, MEDIUM, HIGH};
     public static enum Progress {TODO, DOING, DONE};
 }
