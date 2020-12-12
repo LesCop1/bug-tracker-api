@@ -2,6 +2,7 @@ package org.bugtracker.api.models;
 
 import java.util.Collection;
 
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -41,7 +42,11 @@ public class Developer {
     @JsonIgnore
     private String password;
 
+    @OneToMany(mappedBy = "author")
+    @JsonManagedReference("author")
+    private Collection<Bug> createdBugs;
+
     @OneToMany(mappedBy = "assignee")
-    @JsonManagedReference
+    @JsonManagedReference("assignee")
     private Collection<Bug> bugs;
 }
