@@ -1,0 +1,447 @@
+{
+	"info": {
+		"_postman_id": "3d365dad-6108-41c3-bcea-757ebd8416db",
+		"name": "bugs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "signup ",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Master\",\r\n  \"password\": \"azerty\",\r\n  \"username\": \"master\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\": \"azerty\",\r\n    \"username\": \"master\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/signin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check username availability",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"Camino\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/checkUsernameAvailability",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"checkUsernameAvailability"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create developer",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMyIsImlhdCI6MTYwNzczNzM3NiwiZXhwIjoxNjA4MzQyMTc2fQ.RWXCNsKOzLWfUjCeQnFKN3-nrhPJxGh4lTJAnFFK-5QAnpNRWRknaKOcV0a4R-fBFYCRr10acKtXmVgZkSbvQg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"bugs\": [],\r\n  \"id\": 5,\r\n  \"name\": \"Meth White\",\r\n  \"username\": \"Camino\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/developers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"developers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete bug Copy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMyIsImlhdCI6MTYwNzczNzM3NiwiZXhwIjoxNjA4MzQyMTc2fQ.RWXCNsKOzLWfUjCeQnFKN3-nrhPJxGh4lTJAnFFK-5QAnpNRWRknaKOcV0a4R-fBFYCRr10acKtXmVgZkSbvQg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/developers/18",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"developers",
+						"18"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get developers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/developers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"developers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get developer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/developers/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"developers",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create bug",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMyIsImlhdCI6MTYwNzczNzM3NiwiZXhwIjoxNjA4MzQyMTc2fQ.RWXCNsKOzLWfUjCeQnFKN3-nrhPJxGh4lTJAnFFK-5QAnpNRWRknaKOcV0a4R-fBFYCRr10acKtXmVgZkSbvQg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"assignee\": {\r\n    \"bugs\": [\r\n      null\r\n    ],\r\n    \"id\": 14,\r\n    \"name\": \"Mickael\",\r\n    \"username\": \"Camino\"\r\n  },\r\n  \"creationDate\": \"2020-12-12\",\r\n  \"description\": \"erreur de pilote\",\r\n  \"id\": 10,\r\n  \"priority\": \"HIGH\",\r\n  \"progress\": \"DOING\",\r\n  \"title\": \"Erreurs 0xC1900101\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/bugs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bugs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update bug",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMyIsImlhdCI6MTYwNzczNzM3NiwiZXhwIjoxNjA4MzQyMTc2fQ.RWXCNsKOzLWfUjCeQnFKN3-nrhPJxGh4lTJAnFFK-5QAnpNRWRknaKOcV0a4R-fBFYCRr10acKtXmVgZkSbvQg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"assignee\": {\r\n    \"bugs\": [\r\n      null\r\n    ],\r\n    \"id\": 1,\r\n    \"name\": \"Stelario\",\r\n    \"username\": \"qcarry\"\r\n  },\r\n  \"creationDate\": \"2019-09-25\",\r\n  \"description\": \"Le programme ne se lance pas sur une machine executant Windows XP\",\r\n  \"id\": 4,\r\n  \"priority\": \"HIGH\",\r\n  \"progress\": \"DOING\",\r\n  \"title\": \"Lancement XP\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/bugs/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bugs",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete bug",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMyIsImlhdCI6MTYwNzczNzM3NiwiZXhwIjoxNjA4MzQyMTc2fQ.RWXCNsKOzLWfUjCeQnFKN3-nrhPJxGh4lTJAnFFK-5QAnpNRWRknaKOcV0a4R-fBFYCRr10acKtXmVgZkSbvQg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/bugs/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bugs",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get  bugs",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/bugs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bugs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get bug",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/bugs/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bugs",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "56bc83fd-979b-437d-99cc-538f058c3c95",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "cf8473a1-04bf-4988-8c43-550fad6e067c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "4b48eeca-ed58-4674-979f-8d745fbca507",
+			"key": "token",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMSIsImlhdCI6MTYwNzczNTY5MCwiZXhwIjoxNjA4MzQwNDkwfQ.gogeLz84rVdl2iLo-niLxGOWysd3nYn-KjMpv9PbftdwE51DzLu1xcoYFnF5moBt74eVSieryuTfUCoRkfvTqg"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
